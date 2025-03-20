@@ -11,3 +11,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_library(list INTERFACE include/List.hpp)
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include" DESTINATION "${CMAKE_BINARY_DIR}")
+
+option(BUILD_TESTS "Build tests" ON)
+
+if(BUILD_TESTS)
+  file(GLOB TEST_FILES "tests/*.cpp")
+  foreach(TEST_FILE ${TEST_FILES})
+    get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
+    add_executable(${TEST_NAME} ${TEST_FILE})
+    target_include_directories(${TEST_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+    set_target_properties(${TEST_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
+  endforeach()
+endif()

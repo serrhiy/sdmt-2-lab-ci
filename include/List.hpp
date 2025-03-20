@@ -22,7 +22,14 @@ public:
 
   [[nodiscard]] auto length() const -> std::size_t { return size; }
 
-  auto append(const T& value) noexcept -> void;
+  auto append(const T& value) -> void {
+    auto* node = new Node(tail, nullptr, value);
+    if (head == nullptr) head = node;
+    else tail->next = node;
+    tail = node;
+    size++;
+  }
+
   auto insert(const T& value, int index) noexcept -> void;
   auto remove(int index) noexcept -> T;
   auto removeAll(const T& value) noexcept -> void;
@@ -33,5 +40,13 @@ public:
   auto findLast(const T& value) -> int;
   auto clear() noexcept -> void;
   auto extend(const List<T>& list) -> void;
-  ~List() = default;
+
+  ~List() {
+    auto first = head;
+    while (first != nullptr) {
+      const auto temp = first->next;
+      delete first;
+      first = temp;
+    }
+  }
 };
