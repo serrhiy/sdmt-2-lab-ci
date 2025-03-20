@@ -20,7 +20,8 @@ public:
   auto operator=(const List<T>& list) -> List<T>& = delete;
   auto operator=(List<T>&& list) noexcept -> List<T>&;
 
-  [[nodiscard]] auto length() const -> std::size_t;
+  [[nodiscard]] auto length() const -> std::size_t { return size; }
+
   auto append(const T& value) noexcept -> void;
   auto insert(const T& value, int index) noexcept -> void;
   auto remove(int index) noexcept -> T;
