@@ -3,13 +3,12 @@
 
 auto main(const int argc, const char* argv[]) -> int {
   auto list = List<char>();
+  assert("Empty list should has 0 length" && list.length() == 0);
   auto length = 0;
-  assert("Empty list should has 0 length" && list.length() == length++);
-  list.append('a');
-  assert("List with 1 item should has length 1" && list.length() == length++);
-  for (auto symbol = 'b'; symbol != 'z' + 1; symbol++) {
+  for (auto symbol = 'a'; symbol != 'z' + 1; symbol++) {
     list.append(symbol);
-    assert(list.length() == length++);
+    assert(list.get(length) == symbol);
+    assert(list.length() == ++length);
   }
   return 0;
 }

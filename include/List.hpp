@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstddef>
+#include <stdexcept>
+
+#include <iostream>
 
 template <typename T>
 class List {
@@ -33,7 +36,16 @@ public:
   auto insert(const T& value, int index) noexcept -> void;
   auto remove(int index) noexcept -> T;
   auto removeAll(const T& value) noexcept -> void;
-  auto get(int index) const -> T;
+
+  auto get(const int index) const -> T {
+    if (index < 0 || index >= size) {
+      throw std::out_of_range("Invalid index: " + std::to_string(index));
+    }
+    auto node = head;
+    for (auto counter = 0; counter < index; counter++) node = node->next;
+    return node->value;
+  }
+
   auto clone() const noexcept -> List<T>;
   auto reverse() -> void;
   auto findFirst(const T& value) -> int;
