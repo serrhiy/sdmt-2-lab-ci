@@ -16,6 +16,15 @@ class List {
   std::size_t size = 0;
   Node* head = nullptr;
   Node* tail = nullptr;
+
+  auto getNodeByIndex(const int index) const -> Node* {
+    if (index < 0 || index >= size) {
+      throw std::out_of_range("Invalid index: " + std::to_string(index));
+    }
+    auto node = head;
+    for (auto counter = 0; counter < index; counter++) node = node->next;
+    return node;
+  }
 public:
   List() = default;
   List(const List<T>& list) = delete;
@@ -37,14 +46,7 @@ public:
   auto remove(int index) noexcept -> T;
   auto removeAll(const T& value) noexcept -> void;
 
-  auto get(const int index) const -> T {
-    if (index < 0 || index >= size) {
-      throw std::out_of_range("Invalid index: " + std::to_string(index));
-    }
-    auto node = head;
-    for (auto counter = 0; counter < index; counter++) node = node->next;
-    return node->value;
-  }
+  auto get(const int index) const -> T { return getNodeByIndex(index)->value; }
 
   auto clone() const noexcept -> List<T>;
   auto reverse() -> void;
