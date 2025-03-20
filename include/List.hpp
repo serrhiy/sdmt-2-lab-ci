@@ -42,7 +42,15 @@ public:
     size++;
   }
 
-  auto insert(const T& value, int index) noexcept -> void;
+  auto insert(const T& value, int index) noexcept -> void {
+    auto node = getNodeByIndex(index);
+    auto* newNode = new Node(node->previous, node, value);
+    if (node == head) head = newNode;
+    else node->previous->next = newNode;
+    node->previous = newNode;
+    size++;
+  }
+
   auto remove(int index) noexcept -> T;
   auto removeAll(const T& value) noexcept -> void;
 
