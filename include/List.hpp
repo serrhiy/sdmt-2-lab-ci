@@ -1,18 +1,18 @@
 #pragma once
 
 #include <cstddef>
-#include <memory>
 
 template <typename T>
 class List {
   struct Node {
-    std::unique_ptr<Node> previous;
-    std::unique_ptr<Node> next;
+    Node* previous;
+    Node* next;
     T value;
   };
 
   std::size_t size = 0;
-  std::unique_ptr<Node> head = nullptr;
+  Node* head = nullptr;
+  Node* tail = nullptr;
 public:
   List() = default;
   List(const List<T>& list) = delete;
