@@ -45,7 +45,7 @@ public:
     size++;
   }
 
-  auto insert(const T& value, int index) noexcept -> void {
+  auto insert(const T& value, int index) -> void {
     auto node = getNodeByIndex(index);
     auto* newNode = new Node(node->previous, node, value);
     if (node == head) head = newNode;
@@ -54,7 +54,7 @@ public:
     size++;
   }
 
-  auto remove(const int index) noexcept -> T {
+  auto remove(const int index) -> T {
     auto node = getNodeByIndex(index);
     auto value = node->value;
     if (node == head) {
@@ -77,7 +77,7 @@ public:
     return value;
   }
 
-  auto removeAll(const T& value) noexcept -> void {
+  auto removeAll(const T& value) -> void {
     auto index = 0;
     for (auto node = head; node != nullptr; node = node->next, index++) {
       if (node->value == value) remove(index);
@@ -90,7 +90,7 @@ public:
   auto reverse() -> void;
   auto findFirst(const T& value) -> int;
   auto findLast(const T& value) -> int;
-  auto clear() noexcept -> void;
+  auto clear() -> void;
   auto extend(const List<T>& list) -> void;
 
   ~List() {
