@@ -51,7 +51,29 @@ public:
     size++;
   }
 
-  auto remove(int index) noexcept -> T;
+  auto remove(const int index) noexcept -> T {
+    auto node = getNodeByIndex(index);
+    auto value = node->value;
+    if (node == head) {
+      if (head->next == nullptr) head = tail = nullptr;
+      else {
+        head = head->next;
+        head->previous = nullptr;
+      }
+    } else if (node == tail) {
+      tail = tail->previous;
+      tail->next = nullptr;
+    } else {
+      auto next = node->next;
+      auto previous = node->previous;
+      previous->next = next;
+      next->previous = previous;
+    }
+    delete node;
+    size--;
+    return value;
+  }
+
   auto removeAll(const T& value) noexcept -> void;
 
   auto get(const int index) const -> T { return getNodeByIndex(index)->value; }
