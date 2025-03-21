@@ -72,7 +72,12 @@ public:
     return value;
   }
 
-  auto removeAll(const T& value) noexcept -> void;
+  auto removeAll(const T& value) noexcept -> void {
+    auto index = 0;
+    for (auto node = head; node != nullptr; node = node->next, index++) {
+      if (node->value == value) remove(index);
+    }
+  }
 
   auto get(const int index) const -> T { return getNodeByIndex(index)->value; }
 
