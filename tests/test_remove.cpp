@@ -1,6 +1,5 @@
 #include "List.hpp"
 #include <cassert>
-#include <iostream>
 
 constexpr auto items = 10;
 
@@ -36,6 +35,17 @@ auto removeFromMiddle() -> void {
   assert(list.remove(0) == 0);
   assert(list.remove(5) == 9);
   assert(list.length() == 5);
+}
+
+auto appendAfterRemoving() -> void {
+  auto list = List<int>();
+  for (auto index = 0; index < items; index++) list.append(index);
+  for (auto index = 0; index < items; index++) list.remove(0);
+  for (auto index = 0; index < items; index++) list.append(index);
+  assert(list.length() == items);
+  for (auto index = 0; index < items; index++) {
+    assert(list.get(index) == index);
+  }
 }
 
 auto main(const int argc, const char* argv[]) -> int {
