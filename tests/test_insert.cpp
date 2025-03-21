@@ -1,6 +1,5 @@
 #include "List.hpp"
 #include <cassert>
-#include <iostream>
 
 auto main(const int argc, const char* argv[]) -> int {
   auto list = List<int>();
