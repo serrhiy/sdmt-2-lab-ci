@@ -27,11 +27,10 @@ public:
   List() = default;
   List(const List<T>& list) = delete;
 
-  List(const List<T>&& list) noexcept {
-    size = list.size;
-    head = list.head;
-    tail = list.tail;
-  }
+  List(const List<T>&& list) noexcept
+    : size{ list.size },
+      head{ list.head },
+      tail{ list.tail } { }
 
   auto operator=(const List<T>& list) -> List<T>& = delete;
   auto operator=(List<T>&& list) noexcept -> List<T>&;
