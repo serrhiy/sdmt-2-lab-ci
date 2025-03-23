@@ -55,8 +55,8 @@ public:
   }
 
   auto remove(const int index) -> T {
-    auto node = getNodeByIndex(index);
-    auto value = node->value;
+    const auto node = getNodeByIndex(index);
+    const auto value = node->value;
     if (node == head) {
       if (head->next == nullptr) head = tail = nullptr;
       else {
