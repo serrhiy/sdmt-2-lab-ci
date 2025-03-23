@@ -38,7 +38,7 @@ public:
   [[nodiscard]] auto length() const -> std::size_t { return size; }
 
   auto append(const T& value) -> void {
-    auto* node = new Node(tail, nullptr, value);
+    auto* node = new Node({ tail, nullptr, value });
     if (head == nullptr) head = node;
     else tail->next = node;
     tail = node;
@@ -47,7 +47,7 @@ public:
 
   auto insert(const T& value, int index) -> void {
     auto node = getNodeByIndex(index);
-    auto* newNode = new Node(node->previous, node, value);
+    auto* newNode = new Node({ node->previous, node, value });
     if (node == head) head = newNode;
     else node->previous->next = newNode;
     node->previous = newNode;
