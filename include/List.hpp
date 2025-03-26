@@ -32,10 +32,16 @@ public:
     }
   };
 
-  List(const List<T>&& list) noexcept
+  List(List<T>&& list) noexcept
     : size{ list.size },
       head{ list.head },
-      tail{ list.tail } { }
+      tail{ list.tail }
+    {
+      list.size = 0;
+      list.head = nullptr;
+      list.tail = nullptr;
+      std::cout << "Move constructor\n";
+    }
 
   auto operator=(const List<T>& list) -> List<T>& = delete;
   auto operator=(List<T>&& list) noexcept -> List<T>&;
