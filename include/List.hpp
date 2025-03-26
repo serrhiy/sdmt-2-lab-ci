@@ -25,7 +25,12 @@ class List {
   }
 public:
   List() = default;
-  List(const List<T>& list) = delete;
+
+  List(const List<T>& list) {
+    for (auto node = list.head; node != nullptr; node = node->next) {
+      this->append(node->value);
+    }
+  };
 
   List(const List<T>&& list) noexcept
     : size{ list.size },
