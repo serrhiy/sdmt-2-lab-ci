@@ -123,7 +123,14 @@ public:
     return -1;
   }
 
-  auto findLast(const T& value) -> int;
+  auto findLast(const T& value) -> int {
+    auto index = size - 1;
+    for (auto node = tail; node != nullptr; node = node->previous, index--) {
+      if (value == node->value) return index;
+    }
+    return -1;
+  }
+
   auto clear() -> void;
   auto extend(const List<T>& list) -> void;
 
