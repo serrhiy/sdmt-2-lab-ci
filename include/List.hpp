@@ -40,7 +40,6 @@ public:
       list.size = 0;
       list.head = nullptr;
       list.tail = nullptr;
-      std::cout << "Move constructor\n";
     }
 
   auto operator=(const List<T>& list) -> List<T>& = delete;
@@ -48,17 +47,19 @@ public:
 
   [[nodiscard]] auto length() const -> std::size_t { return size; }
 
-  auto append(const T& value) -> void {
-    auto* node = new Node({ tail, nullptr, value });
+  template<typename U>
+  auto append(U&& value) -> void {
+    auto* node = new Node({ tail, nullptr, std::forward<U>(value) });
     if (head == nullptr) head = node;
     else tail->next = node;
     tail = node;
     size++;
   }
 
-  auto insert(const T& value, int index) -> void {
+  template<typename U>
+  auto insert(U&& value, int index) -> void {
     auto node = getNodeByIndex(index);
-    auto* newNode = new Node({ node->previous, node, value });
+    auto* newNode = new Node({ node->previous, node, std::forward<U>(value) });
     if (node == head) head = newNode;
     else node->previous->next = newNode;
     node->previous = newNode;
@@ -67,7 +68,7 @@ public:
 
   auto remove(const int index) -> T {
     const auto node = getNodeByIndex(index);
-    const auto value = node->value;
+    auto value = std::move(node->value);
     if (node == head) {
       if (head->next == nullptr) head = tail = nullptr;
       else {
@@ -97,7 +98,10 @@ public:
 
   auto get(const int index) const -> T { return getNodeByIndex(index)->value; }
 
-  auto clone() const noexcept -> List<T>;
+  auto clone() const noexcept -> List<T> {
+    return List{ *this };
+  }
+
   auto reverse() -> void;
   auto findFirst(const T& value) -> int;
   auto findLast(const T& value) -> int;
