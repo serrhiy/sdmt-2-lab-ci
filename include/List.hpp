@@ -9,6 +9,12 @@ class List {
     Node* previous;
     Node* next;
     T value;
+
+    template<typename U>
+    Node(Node* previous, Node* next, U&& value)
+      : previous{ previous },
+        next{ next },
+        value{ std::forward<U>(value) } { }
   };
 
   std::size_t size = 0;
@@ -49,7 +55,7 @@ public:
 
   template<typename U>
   auto append(U&& value) -> void {
-    auto* node = new Node({ tail, nullptr, std::forward<U>(value) });
+    auto* node = new Node(tail, nullptr, std::forward<U>(value));
     if (head == nullptr) head = node;
     else tail->next = node;
     tail = node;
@@ -59,7 +65,7 @@ public:
   template<typename U>
   auto insert(U&& value, int index) -> void {
     auto node = getNodeByIndex(index);
-    auto* newNode = new Node({ node->previous, node, std::forward<U>(value) });
+    auto* newNode = new Node(node->previous, node, std::forward<U>(value));
     if (node == head) head = newNode;
     else node->previous->next = newNode;
     node->previous = newNode;
