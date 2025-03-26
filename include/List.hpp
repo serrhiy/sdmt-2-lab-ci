@@ -115,7 +115,14 @@ public:
     std::swap(head, tail);
   }
 
-  auto findFirst(const T& value) -> int;
+  auto findFirst(const T& value) -> int {
+    auto index = 0;
+    for (auto node = head; node != nullptr; node = node->next, index++) {
+      if (value == node->value) return index;
+    }
+    return -1;
+  }
+
   auto findLast(const T& value) -> int;
   auto clear() -> void;
   auto extend(const List<T>& list) -> void;
