@@ -142,7 +142,11 @@ public:
     head = tail = nullptr;
   }
 
-  auto extend(const List<T>& list) -> void;
+  auto extend(const List<T>& list) -> void {
+    for (auto node = list.head; node != nullptr; node = node->next) {
+      append(node->value);
+    }
+  }
 
   ~List() {
     clear();
