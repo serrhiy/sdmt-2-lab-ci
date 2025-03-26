@@ -108,7 +108,13 @@ public:
     return List{ *this };
   }
 
-  auto reverse() -> void;
+  auto reverse() -> void {
+    for (auto node = head; node != nullptr; node = node->previous) {
+      std::swap(node->next, node->previous);
+    }
+    std::swap(head, tail);
+  }
+
   auto findFirst(const T& value) -> int;
   auto findLast(const T& value) -> int;
   auto clear() -> void;
