@@ -131,15 +131,20 @@ public:
     return -1;
   }
 
-  auto clear() -> void;
-  auto extend(const List<T>& list) -> void;
-
-  ~List() {
+  auto clear() -> void {
     auto first = head;
     while (first != nullptr) {
       const auto temp = first->next;
       delete first;
       first = temp;
     }
+    size = 0;
+    head = tail = nullptr;
+  }
+
+  auto extend(const List<T>& list) -> void;
+
+  ~List() {
+    clear();
   }
 };
